@@ -1,11 +1,43 @@
 const express = require('express');
-const server = express();
+const session = require('express-session');
+
+
+
+const knexSessionStore = require('connect-session-knex')(session)
+const restricted =  require('../api/middleware/restricted.js')
 
 const userRouter = require('../api/users/user-router.js')
+const authRouter = require('../auth/auth-router.js')
+
+const server = express();
+
+const sessionConfig = {
+    name: 'samses',
+    secret: 'on the dl',
+    cookie: {
+      maxAge: 1000 * 60 * 60,
+      secure: false,
+      httpOnly: true
+    },
+    resave: false,
+    saveUninitialized: false,
+  
+    store: new knexSessionStore(
+      {
+        knex: require("../database/db-config.js"),
+        tablename: "sessions",
+        sidfieldname: "sid",
+        createtable: true,
+        clearInterval: 1000 * 60 * 60
+      }
+    )
+  }
+
 
 server.use(express.json());
-
-server.use('/api/users', userRouter);
+server.use(session(sessionConfig));
+server.use('/api/users', restricted, userRouter);
+server.use('/api/auth', authRouter);
 
 
 

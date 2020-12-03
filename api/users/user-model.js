@@ -42,8 +42,7 @@ async function register(newUserData) {
 
 async function login(loginData) {
     try {
-        const matched = await db('users').where(loginData).first()
-        return matched;
+        return findByUsername(loginData);
     } catch (error) {
         throw error;
     }
