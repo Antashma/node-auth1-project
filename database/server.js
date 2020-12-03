@@ -3,8 +3,11 @@ const server = express();
 
 const userRouter = require('../api/users/user-router.js')
 
-server.use('/api/users', userRouter);
 server.use(express.json());
+
+server.use('/api/users', userRouter);
+
+
 
 server.get('', (req, res) => {
     res.send(`
@@ -28,5 +31,9 @@ server.get('', (req, res) => {
         <p>Includes support for sessions and cookies that uses them to keep a record of logged in users across requests.</p>
     `)
 })
+
+
+
+
 
 module.exports = server;
