@@ -1,7 +1,10 @@
 const express = require('express');
 const server = express();
 
-server.use(express.json())
+const userRouter = require('../api/users/user-router.js')
+
+server.use('/api/users', userRouter);
+server.use(express.json());
 
 server.get('', (req, res) => {
     res.send(`
