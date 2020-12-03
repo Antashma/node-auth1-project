@@ -5,7 +5,14 @@ server.use(express.json())
 
 server.get('', (req, res) => {
     res.send(`
-        <h1>Welcome to Sam G's Node Auth 1 Project</h1>
+        <h1>Welcome to Sam G's Node Auth 1 Project!</h1>
+        <h2>Purpose</h2>
+        <p>Use Node.js, Express and Knex to:<p>
+        <ul>
+            <li>Build an API that provides <strong>Register</strong> and <strong>Login</strong> functionality</li>
+            <li>Using SQLite, store <em>User</em> information </li>
+            <li>Make sure the password is NOT stored as plain text</li>
+        </ul>
         <h2>Endpoints</h2>
         <ul>
             <li>POST /api/register <br />
